@@ -23,7 +23,7 @@
 # PACKER_PROVISIONER_TPL_NAME=chef #Looks for $GITHUB_PACKER_REL_PATH/packer-provisioner-$PACKER_PROVISIONER_TPL_NAME.rb Racker template in Packer Common
 # PACKER_INSTANCE_TPL=$ROOT_FOLDER/packer.rb #Defines the path of a custom Racker template
 # 8. Run Packer builder (specified by $2)
-# $PACKER_CACHE_DIR allows you to specify a reusable packer_cache folder
+# PACKER_CACHE_DIR allows you to specify a reusable packer_cache folder
 # PACKER_LOG=1 shows Packer debugging messages
 
 TIMESTAMP=`date +%s`
