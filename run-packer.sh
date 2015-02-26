@@ -98,7 +98,7 @@ generate_ssl_cert packer-common-$TIMESTAMP
 export SSH_PRIVATE_KEY_FILE="$PACKER_RUN_FOLDER/packer-common-$TIMESTAMP.pem"
 
 DEBUG=""
-if [ "$PACKER_LOG" -eq "1" ]; then
+if [ $PACKER_LOG -eq "1" ]; then
   DEBUG="-debug"
 fi
 
