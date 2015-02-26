@@ -1,5 +1,14 @@
 #!/bin/bash
 #
+function generate_ssl_cert {
+  cert_name=$1
+  (
+    openssl genrsa -des3 -out ${cert_name}.key 1024
+    openssl rsa -in ${cert_name}.key -out ${cert_name}.pem
+    openssl req -new -key ${cert_name}.pem -out ${cert_name}.csr
+    openssl x509 -req -days 365 -in ${cert_name}.csr -signkey ${cert_name}.pem -out ${cert_name}.crt
+  )
+}
 # run-packer [.env file]
 # .env file must define some variables, read below.
 #
@@ -25,7 +34,6 @@
 # 8. Run Packer builder (specified by $2)
 # PACKER_CACHE_DIR allows you to specify a reusable packer_cache folder
 # PACKER_LOG=1 shows Packer debugging messages
-
 TIMESTAMP=`date +%s`
 ENV_FILE=$1
 ROOT_FOLDER=`pwd`
@@ -97,13 +105,3 @@ packer build packer.json >> packer-run.log
 echo "run-packer.sh finished - `date`" >> packer-run.log
 
 cd $ROOT_FOLDER
-
-function generate_ssl_cert {
-  cert_name=$1
-  (
-    openssl genrsa -des3 -out ${cert_name}.key 1024
-    openssl rsa -in ${cert_name}.key -out ${cert_name}.pem
-    openssl req -new -key ${cert_name}.pem -out ${cert_name}.csr
-    openssl x509 -req -days 365 -in ${cert_name}.csr -signkey ${cert_name}.pem -out ${cert_name}.crt
-  )
-}
