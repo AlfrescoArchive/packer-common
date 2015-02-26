@@ -97,7 +97,12 @@ export PACKER_CACHE_DIR
 generate_ssl_cert packer-common-$TIMESTAMP
 export SSH_PRIVATE_KEY_FILE="$PACKER_RUN_FOLDER/packer-common-$TIMESTAMP.pem"
 
-packer build packer.json >> packer-run.log
+DEBUG=""
+if [ "$PACKER_LOG" -eq "1" ]; then
+  DEBUG="-debug"
+fi
+
+packer build $DEBUG packer.json >> packer-run.log
 # TODO - upload Vagrant box somewhere inside VPN boundaries
 
 echo "run-packer.sh finished - `date`" >> packer-run.log
