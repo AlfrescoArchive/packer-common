@@ -29,7 +29,8 @@ Racker::Processor.register_template do |t|
     "source_ami"=> "{{user `source_ami`}}",
     "instance_type"=> "{{user `instance_type`}}",
     "ssh_username"=> "{{user `ssh_username`}}",
-    "ssh_private_key_file"=> "{{user `ssh_private_key_file`}}",
+    # Disabled for now, causes "Build 'amazon' errored: No valid AWS authentication found"
+    # "ssh_private_key_file"=> "{{user `ssh_private_key_file`}}",
     "security_group_ids" => ['{{user `security_group_id1`}}','{{user `security_group_id2`}}'],
     "ami_name"=> "{{user `ami_name`}}",
     "ami_description"=> "{{user `ami_description`}}",
