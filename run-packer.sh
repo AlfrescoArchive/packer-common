@@ -1,12 +1,10 @@
 #!/bin/bash
 #
 function generate_ssl_cert {
-  cert_name=$1
+  export cert_name=$1
   (
-    openssl genrsa -des3 -out ${cert_name}.key 1024
+    openssl genrsa -out ${cert_name}.key 4096
     openssl rsa -in ${cert_name}.key -out ${cert_name}.pem
-    openssl req -new -key ${cert_name}.pem -out ${cert_name}.csr
-    openssl x509 -req -days 365 -in ${cert_name}.csr -signkey ${cert_name}.pem -out ${cert_name}.crt
   )
 }
 # run-packer [.env file]
