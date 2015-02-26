@@ -95,7 +95,7 @@ export PACKER_CACHE_DIR
 
 #Generate temporary .pem file to access the AMI
 generate_ssl_cert packer-common-$TIMESTAMP
-export SSH_PRIVATE_KEY_FILE="$PACKER_RUN_FOLDER/packer-common-$TIMESTAMP"
+export SSH_PRIVATE_KEY_FILE="$PACKER_RUN_FOLDER/packer-common-$TIMESTAMP.pem"
 
 packer build packer.json >> packer-run.log
 # TODO - upload Vagrant box somewhere inside VPN boundaries
