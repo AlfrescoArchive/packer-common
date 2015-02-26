@@ -94,9 +94,11 @@ racker $PACKER_BUILDER_TPL $PACKER_PROVISIONER_TPL $PACKER_INSTANCE_TPL packer.j
 export PACKER_CACHE_DIR
 
 #Generate temporary .pem file to access the AMI
-export SSH_PRIVATE_KEY_FILE="packer-common-$TIMESTAMP.pem"
-generate_ssl_cert "packer-common-$TIMESTAMP"
-chmod 400 $SSH_PRIVATE_KEY_FILE
+if [ -z "$SSH_PRIVATE_KEY_FILE" ]; then
+  export SSH_PRIVATE_KEY_FILE="packer-common-$TIMESTAMP.pem"
+  generate_ssl_cert "packer-common-$TIMESTAMP"
+  chmod 400 $SSH_PRIVATE_KEY_FILE
+fi
 
 DEBUG=""
 if [ "$PACKER_LOG"="1" ]; then
