@@ -95,8 +95,8 @@ export PACKER_CACHE_DIR
 
 #Generate temporary .pem file to access the AMI
 generate_ssl_cert packer-common-$TIMESTAMP
-chmod 400 $PACKER_RUN_FOLDER/packer-common-$TIMESTAMP.pem
-export SSH_PRIVATE_KEY_FILE="$PACKER_RUN_FOLDER/packer-common-$TIMESTAMP.pem"
+export SSH_PRIVATE_KEY_FILE="packer-common-$TIMESTAMP.pem"
+chmod 400 $SSH_PRIVATE_KEY_FILE
 
 DEBUG=""
 if [ $PACKER_LOG -eq "1" ]; then
