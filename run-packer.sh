@@ -99,7 +99,7 @@ generate_ssl_cert $SSH_PRIVATE_KEY_FILE
 chmod 400 $SSH_PRIVATE_KEY_FILE
 
 DEBUG=""
-if [ $PACKER_LOG -eq "1" ]; then
+if [ "$PACKER_LOG"="1" ]; then
   DEBUG="-debug"
 fi
 
