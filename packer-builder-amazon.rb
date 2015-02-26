@@ -15,7 +15,7 @@ Racker::Processor.register_template do |t|
     "ami_name"=> "{{env `AMI_NAME`}}",
     "ami_description"=> "{{env `AMI_DESCRIPTION`}}",
     "ssh_username" => "{{env `SSH_USERNAME`}}",
-    "ssh_private_key_file" => "{{env `SSH_PRIVATE_KEY_FILE`}}",
+    # "ssh_private_key_file" => "{{env `SSH_PRIVATE_KEY_FILE`}}",
     # Chef Provisioning parameters
     "data_bags_path" => "{{env `DATA_BAGS_PATH`}}",
     "cookbook_path" => "{{env `COOKBOOK_PATH`}}"
