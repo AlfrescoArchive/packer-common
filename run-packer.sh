@@ -87,9 +87,23 @@ racker $PACKER_BUILDER_TPL $PACKER_PROVISIONER_TPL $PACKER_INSTANCE_TPL packer.j
 
 export PACKER_CACHE_DIR
 
+#Generate temporary .pem file to access the AMI
+generate_ssl_cert packer-common-$TIMESTAMP
+export SSH_PRIVATE_KEY_FILE="$PACKER_RUN_FOLDER/packer-common-$TIMESTAMP"
+
 packer build packer.json >> packer-run.log
 # TODO - upload Vagrant box somewhere inside VPN boundaries
 
 echo "run-packer.sh finished - `date`" >> packer-run.log
 
 cd $ROOT_FOLDER
+
+function generate_ssl_cert {
+  cert_name=$1
+  (
+    openssl genrsa -des3 -out ${cert_name}.key 1024
+    openssl rsa -in ${cert_name}.key -out ${cert_name}.pem
+    openssl req -new -key ${cert_name}.pem -out ${cert_name}.csr
+    openssl x509 -req -days 365 -in ${cert_name}.csr -signkey ${cert_name}.pem -out ${cert_name}.crt
+  )
+}
