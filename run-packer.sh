@@ -29,6 +29,9 @@ TIMESTAMP=`date +%s`
 ENV_FILE=$1
 ROOT_FOLDER=`pwd`
 
+if [ -z "$PACKER_BIN" ]; then
+  export PACKER_BIN=packer
+fi
 PACKER_RUN_FOLDER="packer-run/$TIMESTAMP"
 
 if [ -z "$ENV_FILE" ]; then
@@ -91,7 +94,7 @@ if [ "$PACKER_LOG"="1" ]; then
   DEBUG="-debug"
 fi
 
-packer build $DEBUG packer.json >> packer-run.log
+$PACKER_BIN build $DEBUG packer.json >> packer-run.log
 # TODO - upload Vagrant box somewhere inside VPN boundaries
 
 echo "run-packer.sh finished - `date`" >> packer-run.log
