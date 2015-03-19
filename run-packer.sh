@@ -48,7 +48,9 @@ cd $PACKER_RUN_FOLDER
 
 echo "run-packer.sh started - `date`" >> packer-run.log
 rm $ROOT_FOLDER/packer-run/latest.log
+rm $ROOT_FOLDER/packer-run/latest-run
 ln -s $PWD/packer-run.log $ROOT_FOLDER/packer-run/latest.log
+ln -s $PWD $ROOT_FOLDER/packer-run/latest-run
 
 # Download packer-common.rb and ks.cfg
 if [ -n "$GITHUB_PACKER_REPO" ]; then
