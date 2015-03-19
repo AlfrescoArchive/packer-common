@@ -5,7 +5,6 @@ Racker::Processor.register_template do |t|
     # Virtualbox source image coordinates
     "source_path" => "{{env `SOURCE_PATH`}}",
     # Virtualbox target image coordinates
-    "vagrant_output_file" => "{{env `VAGRANT_OUTPUT_FILE`}}",
     "output_directory" => "{{env `OUTPUT_DIRECTORY`}}",
     "vm_name" => "{{env `VM_NAME`}}",
     # Chef Provisioning parameters
