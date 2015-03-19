@@ -7,7 +7,6 @@ Racker::Processor.register_template do |t|
     "iso_sha256" => "{{env `ISO_SHA256`}}",
     # Virtualbox target image coordinates
     "output_directory" => "{{env `OUTPUT_DIRECTORY`}}",
-    "vagrant_output_file" => "{{env `VAGRANT_OUTPUT_FILE`}}",
     "ks_directory" => "{{env `KS_DIRECTORY`}}",
     "vm_name" => "{{env `VM_NAME`}}",
     # Chef Provisioning parameters
