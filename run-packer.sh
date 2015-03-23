@@ -69,6 +69,7 @@ if [ -n "$GITHUB_DATABAGS_REPO" ]; then
   git clone git@github.com:$GITHUB_DATABAGS_REPO.git databags_checkout >> packer-run.log
   cd databags_checkout
   git checkout $GITHUB_DATABAGS_VERSION  >> packer-run.log
+  rm -f *
   cd -
 
   export DATA_BAGS_PATH=./databags_checkout/$GITHUB_DATABAGS_REL_PATH
