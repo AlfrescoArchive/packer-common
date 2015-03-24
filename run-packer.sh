@@ -54,14 +54,18 @@ rm $ROOT_FOLDER/packer-run/latest-run
 ln -s $PWD/packer-run.log $ROOT_FOLDER/packer-run/latest.log
 ln -s $PWD $ROOT_FOLDER/packer-run/latest-run
 
+echo "Github endpoint configured: $GITHUB_ENDPOINT_TYPE" >> packer-run.log
+
 #Determine Github SSH or HTTPS endpoints
 if [ "$GITHUB_ENDPOINT_TYPE"="https" ]; then
   GITHUB_PREFIX="https://github.com/"
+  echo "Overriding Github endpoint: $GITHUB_ENDPOINT_TYPE" >> packer-run.log
+  echo "Overriding Github endpoint: $GITHUB_PREFIX" >> packer-run.log
 fi
 
 # Download packer-common.rb and ks.cfg
 if [ -n "$GITHUB_PACKER_REPO" ]; then
-  echo "Checking out Github repo: $GITHUB_PREFIX$GITHUB_PACKER_REPO.git"
+  echo "Checking out Github repo: $GITHUB_PREFIX$GITHUB_PACKER_REPO.git" >> packer-run.log
   git clone $GITHUB_PREFIX$GITHUB_PACKER_REPO.git packer_common_checkout >> packer-run.log
   cd packer_common_checkout
   git checkout $GITHUB_PACKER_VERSION >> ../packer-run.log
@@ -74,7 +78,7 @@ fi
 
 # Download data_bags
 if [ -n "$GITHUB_DATABAGS_REPO" ]; then
-  echo "Checking out Github repo: $GITHUB_PREFIX$GITHUB_DATABAGS_REPO.git"
+  echo "Checking out Github repo: $GITHUB_PREFIX$GITHUB_DATABAGS_REPO.git" >> packer-run.log
   git clone $GITHUB_PREFIX$GITHUB_DATABAGS_REPO.git databags_checkout >> packer-run.log
   cd databags_checkout
   git checkout $GITHUB_DATABAGS_VERSION  >> ../packer-run.log
