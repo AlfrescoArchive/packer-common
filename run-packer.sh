@@ -101,7 +101,7 @@ racker $PACKER_BUILDER_TPL $PACKER_PROVISIONER_TPL $PACKER_INSTANCE_TPL packer.j
 export PACKER_CACHE_DIR
 
 DEBUG=""
-if [ "$PACKER_LOG" -eq "1" ]; then
+if [ "$PACKER_LOG" = "1" ]; then
   DEBUG="-debug"
 fi
 
