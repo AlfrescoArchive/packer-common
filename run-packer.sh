@@ -57,7 +57,7 @@ ln -s $PWD $ROOT_FOLDER/packer-run/latest-run
 echo "Github endpoint configured: $GITHUB_ENDPOINT_TYPE" >> packer-run.log
 
 #Determine Github SSH or HTTPS endpoints
-if [ "$GITHUB_ENDPOINT_TYPE"="https" ]; then
+if [ "$GITHUB_ENDPOINT_TYPE" -eq "https" ]; then
   GITHUB_PREFIX="https://github.com/"
   echo "Overriding Github endpoint: $GITHUB_ENDPOINT_TYPE" >> packer-run.log
   echo "Overriding Github endpoint: $GITHUB_PREFIX" >> packer-run.log
