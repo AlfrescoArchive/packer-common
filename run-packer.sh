@@ -28,6 +28,7 @@
 TIMESTAMP=`date +%s`
 ENV_FILE=$1
 ROOT_FOLDER=`pwd`
+GITHUB_ENDPOINT_TYPE="ssh"
 
 if [ -z "$PACKER_BIN" ]; then
   export PACKER_BIN=packer
@@ -52,9 +53,16 @@ rm $ROOT_FOLDER/packer-run/latest-run
 ln -s $PWD/packer-run.log $ROOT_FOLDER/packer-run/latest.log
 ln -s $PWD $ROOT_FOLDER/packer-run/latest-run
 
+#Determine Github SSH or HTTPS endpoints
+if [ "$GITHUB_ENDPOINT_TYPE" -eq "ssh" ]; then
+  GITHUB_PREFIX="git@github.com:"
+elif [ "$GITHUB_ENDPOINT_TYPE" -eq "https" ]; then
+  GITHUB_PREFIX="https://github.com/"
+fi
+
 # Download packer-common.rb and ks.cfg
 if [ -n "$GITHUB_PACKER_REPO" ]; then
-  git clone git@github.com:$GITHUB_PACKER_REPO.git packer_common_checkout >> packer-run.log
+  git clone $GITHUB_PREFIX$GITHUB_PACKER_REPO.git packer_common_checkout >> packer-run.log
   cd packer_common_checkout
   git checkout $GITHUB_PACKER_VERSION >> ../packer-run.log
   cd -
@@ -66,7 +74,7 @@ fi
 
 # Download data_bags
 if [ -n "$GITHUB_DATABAGS_REPO" ]; then
-  git clone git@github.com:$GITHUB_DATABAGS_REPO.git databags_checkout >> packer-run.log
+  git clone $GITHUB_PREFIX$GITHUB_DATABAGS_REPO.git databags_checkout >> packer-run.log
   cd databags_checkout
   git checkout $GITHUB_DATABAGS_VERSION  >> packer-run.log
   rm -f *
