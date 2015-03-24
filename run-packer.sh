@@ -61,6 +61,7 @@ fi
 
 # Download packer-common.rb and ks.cfg
 if [ -n "$GITHUB_PACKER_REPO" ]; then
+  echo "Checking out Github repo: $GITHUB_PREFIX$GITHUB_PACKER_REPO.git"
   git clone $GITHUB_PREFIX$GITHUB_PACKER_REPO.git packer_common_checkout >> packer-run.log
   cd packer_common_checkout
   git checkout $GITHUB_PACKER_VERSION >> ../packer-run.log
@@ -73,10 +74,10 @@ fi
 
 # Download data_bags
 if [ -n "$GITHUB_DATABAGS_REPO" ]; then
+  echo "Checking out Github repo: $GITHUB_PREFIX$GITHUB_DATABAGS_REPO.git"
   git clone $GITHUB_PREFIX$GITHUB_DATABAGS_REPO.git databags_checkout >> packer-run.log
   cd databags_checkout
-  git checkout $GITHUB_DATABAGS_VERSION  >> packer-run.log
-  rm -f *
+  git checkout $GITHUB_DATABAGS_VERSION  >> ../packer-run.log
   cd -
 
   export DATA_BAGS_PATH=./databags_checkout/$GITHUB_DATABAGS_REL_PATH
