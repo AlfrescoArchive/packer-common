@@ -29,6 +29,7 @@ TIMESTAMP=`date +%s`
 ENV_FILE=$1
 ROOT_FOLDER=`pwd`
 GITHUB_ENDPOINT_TYPE="ssh"
+GITHUB_PREFIX="git@github.com:"
 
 if [ -z "$PACKER_BIN" ]; then
   export PACKER_BIN=packer
@@ -54,9 +55,7 @@ ln -s $PWD/packer-run.log $ROOT_FOLDER/packer-run/latest.log
 ln -s $PWD $ROOT_FOLDER/packer-run/latest-run
 
 #Determine Github SSH or HTTPS endpoints
-if [ "$GITHUB_ENDPOINT_TYPE" -eq "ssh" ]; then
-  GITHUB_PREFIX="git@github.com:"
-elif [ "$GITHUB_ENDPOINT_TYPE" -eq "https" ]; then
+if [ "$GITHUB_ENDPOINT_TYPE" -eq "https" ]; then
   GITHUB_PREFIX="https://github.com/"
 fi
 
