@@ -54,13 +54,9 @@ rm $ROOT_FOLDER/packer-run/latest-run
 ln -s $PWD/packer-run.log $ROOT_FOLDER/packer-run/latest.log
 ln -s $PWD $ROOT_FOLDER/packer-run/latest-run
 
-echo "Github endpoint configured: $GITHUB_ENDPOINT_TYPE" >> packer-run.log
-
 #Determine Github SSH or HTTPS endpoints
 if [ "$GITHUB_ENDPOINT_TYPE" -eq "https" ]; then
   GITHUB_PREFIX="https://github.com/"
-  echo "Overriding Github endpoint: $GITHUB_ENDPOINT_TYPE" >> packer-run.log
-  echo "Overriding Github endpoint: $GITHUB_PREFIX" >> packer-run.log
 fi
 
 # Download packer-common.rb and ks.cfg
@@ -105,7 +101,7 @@ racker $PACKER_BUILDER_TPL $PACKER_PROVISIONER_TPL $PACKER_INSTANCE_TPL packer.j
 export PACKER_CACHE_DIR
 
 DEBUG=""
-if [ "$PACKER_LOG"="1" ]; then
+if [ "$PACKER_LOG" -eq "1" ]; then
   DEBUG="-debug"
 fi
 
