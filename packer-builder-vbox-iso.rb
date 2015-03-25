@@ -10,6 +10,7 @@ Racker::Processor.register_template do |t|
     "output_directory" => "{{env `OUTPUT_DIRECTORY`}}",
     "ks_directory" => "{{env `KS_DIRECTORY`}}",
     "vm_name" => "{{env `VM_NAME`}}",
+    "headless" => "{{env `HEADLESS`}}",
     # Chef Provisioning parameters
     "data_bags_path" => "{{env `DATA_BAGS_PATH`}}",
     "cookbook_path" => "{{env `COOKBOOK_PATH`}}"
@@ -33,7 +34,7 @@ Racker::Processor.register_template do |t|
     "guest_additions_path"=> "VBoxGuestAdditions_{{.Version}}.iso",
     "guest_additions_sha256"=> "2a87971ae3c7e57e87713967a6f242acbdafcc09b635cba98e6dd3a7f5292d3b",
     "guest_os_type" => "RedHat_64",
-    "headless"=> "true",
+    "headless"=> "{{user `headless`}}",
     "http_directory"=> "{{user `ks_directory`}}",
     "shutdown_command"=> "echo 'vagrant' | sudo -S /sbin/halt -p",
     "vboxmanage"=> {
