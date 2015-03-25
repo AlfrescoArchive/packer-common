@@ -5,6 +5,7 @@ Racker::Processor.register_template do |t|
     # Virtualbox source image coordinates
     "iso_url" => "{{env `ISO_URL`}}",
     "iso_sha256" => "{{env `ISO_SHA256`}}",
+    "iso_checksum_type" => "{{env `ISO_CHECKSUM_TYPE`}}",
     # Virtualbox target image coordinates
     "output_directory" => "{{env `OUTPUT_DIRECTORY`}}",
     "ks_directory" => "{{env `KS_DIRECTORY`}}",
@@ -18,6 +19,7 @@ Racker::Processor.register_template do |t|
     "type"=> "virtualbox-iso",
     "iso_url"=> "{{user `iso_url`}}",
     "iso_checksum"=> "{{user `iso_sha256`}}",
+    "iso_checksum_type"=> "{{user `iso_checksum_type`}}",
     "output_directory" => "{{user `output_directory`}}",
     "vm_name" => "{{user `vm_name`}}",
     "iso_checksum_type"=> "sha256",
