@@ -17,7 +17,8 @@ Racker::Processor.register_template do |t|
     "ssh_username" => "{{env `SSH_USERNAME`}}",
     # Chef Provisioning parameters
     "data_bags_path" => "{{env `DATA_BAGS_PATH`}}",
-    "cookbook_path" => "{{env `COOKBOOK_PATH`}}"
+    "cookbook_path" => "{{env `COOKBOOK_PATH`}}",
+    "chef_log_level" => "{{env `CHEF_LOG_LEVEL`}}"
   }
 
   t.builders['amazon'] = {
