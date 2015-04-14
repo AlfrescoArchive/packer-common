@@ -4,7 +4,7 @@ Racker::Processor.register_template do |t|
       "chef" => {
         "cookbook_paths"=> ["{{user `cookbook_path`}}"],
         "data_bags_path" => "{{user `data_bags_path`}}",
-        "execute_command"=> "sudo chef-solo --no-color -c {{.ConfigPath}} -j {{.JsonPath}} -l debug",
+        "execute_command"=> "sudo chef-solo --no-color -c {{.ConfigPath}} -j {{.JsonPath}} -l {{user `chef_log_level`}}",
         "install_command"=> "sudo bash -c 'curl -L https://www.opscode.com/chef/install.sh| bash -s -- -v 12.0.3'",
         "prevent_sudo"=> false,
         "skip_install"=> false,
