@@ -4,6 +4,8 @@ Racker::Processor.register_template do |t|
       "create-packer-folders" => {
         "type" => "shell",
         "inline" => [
+          "echo PRINTING OUT chef clientrb",
+          "cat /tmp/packer-chef-client/first-boot.json",
           "sudo mkdir -p /etc/chef",
           "sudo chmod 777 /etc/chef",
           "sudo chown -R root:root /etc/chef",
