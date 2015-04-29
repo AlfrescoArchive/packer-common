@@ -24,7 +24,7 @@ Racker::Processor.register_template do |t|
       "create-databags" => {
         "type"=> "file",
         "source"=> "{{pwd}}/databags_checkout",
-        "destination"=> "/etc/chef/databags"
+        "destination"=> "/etc/chef/data_bags"
       }
     },
     10 => {
