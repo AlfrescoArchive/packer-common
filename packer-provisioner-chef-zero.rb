@@ -14,7 +14,7 @@ Racker::Processor.register_template do |t|
     },
     10 => {
       "chef" => {
-        "execute_command"=> "sudo chef-client --no-color --local-mode -c {{.ConfigPath}} -j {{.JsonPath}} -l {{user `chef_log_level`}}",
+        "execute_command"=> "sudo chef-client --no-color --local-mode -c /tmp/packer-chef-client/client.rb -j /tmp/packer-chef-client/first-boot.json -l {{user `chef_log_level`}}",
         "server_url" => "http://localhost:8889",
         "install_command"=> "sudo bash -c 'curl -L https://www.opscode.com/chef/install.sh| bash -s -- -v 12.2.1'",
         "prevent_sudo"=> false,
