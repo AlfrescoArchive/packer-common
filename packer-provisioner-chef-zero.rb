@@ -43,8 +43,8 @@ Racker::Processor.register_template do |t|
         "type" => "shell",
         "inline" => [
           "set -e",
-          "sudo knife node delete {{user `node_name`}} -s {{user `chef_server`}} -u {{user `node_name`}} -y",
-          "sudo knife client delete {{user `node_name`}} -s {{user `chef_server`}} -u {{user `node_name`}} -y"
+          "sudo knife node delete localhost -s http://localhost:8889 -u localhost -y",
+          "sudo knife client delete localhost -s http://localhost:8889 -u localhost -y"
         ]
       }
     },
