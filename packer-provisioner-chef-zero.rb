@@ -5,6 +5,7 @@ Racker::Processor.register_template do |t|
         "type" => "shell",
         "inline" => [
           "sudo mkdir -p /etc/chef",
+          "sudo chmod 777 /etc/chef",
           "sudo chown -R root:root /etc/chef",
           "sudo mkdir -p /tmp/packer-chef-client",
           "sudo chown -R root:root /tmp/packer-chef-client",
