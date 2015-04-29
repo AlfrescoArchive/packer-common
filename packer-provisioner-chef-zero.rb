@@ -4,8 +4,11 @@ Racker::Processor.register_template do |t|
       "create-packer-folders" => {
         "type" => "shell",
         "inline" => [
-          "sudo mkdir -p /etc/chef && sudo chown -R root:root /etc/chef",
-          "sudo mkdir -p /tmp/packer-chef-client && sudo chown -R root:root /tmp/packer-chef-client && sudo chmod 777 /tmp/packer-chef-client"
+          "sudo mkdir -p /etc/chef",
+          "sudo chown -R root:root /etc/chef",
+          "sudo mkdir -p /tmp/packer-chef-client",
+          "sudo chown -R root:root /tmp/packer-chef-client",
+          "sudo chmod 777 /tmp/packer-chef-client"
         ]
       }
     },
