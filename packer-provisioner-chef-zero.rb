@@ -1,11 +1,13 @@
 Racker::Processor.register_template do |t|
   t.provisioners = {
     9 => {
-      "type" => "shell",
-      "inline" => [
-        "sudo mkdir -p /etc/chef && sudo chown -R root:root /etc/chef",
-        "sudo mkdir -p /tmp/packer-chef-client && sudo chown -R root:root /tmp/packer-chef-client"
-      ]
+      "create-packer-folders" => {
+        "type" => "shell",
+        "inline" => [
+          "sudo mkdir -p /etc/chef && sudo chown -R root:root /etc/chef",
+          "sudo mkdir -p /tmp/packer-chef-client && sudo chown -R root:root /tmp/packer-chef-client"
+        ]
+      }
     },
     10 => {
       "chef" => {
