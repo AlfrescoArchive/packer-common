@@ -29,23 +29,19 @@ Racker::Processor.register_template do |t|
     },
     10 => {
       "chef" => {
-        "execute_command"=> "cd /etc/chef $$ cat /tmp/packer-chef-client/first-boot.json && cat /tmp/packer-chef-client/client.rb && ls -l /etc/chef/cookbooks && ls -l /etc/chef/data_bags && sudo chef-client --no-color --local-mode -c /tmp/packer-chef-client/client.rb -j /tmp/packer-chef-client/first-boot.json -l {{user `chef_log_level`}}",
+        "execute_command"=> "cd /etc/chef && \
+        sudo chef-client --no-color --local-mode \
+        -c /tmp/packer-chef-client/client.rb \
+        -j /tmp/packer-chef-client/first-boot.json \
+        -l {{user `chef_log_level`}} && \
+        sudo knife node delete localhost -s http://localhost:8889 -u localhost -y && \
+        sudo knife client delete localhost -s http://localhost:8889 -u localhost -y",
         "server_url" => "http://localhost:8889",
         "install_command"=> "sudo bash -c 'curl -L https://www.opscode.com/chef/install.sh| bash -s -- -v 12.2.1'",
         "prevent_sudo"=> false,
         "skip_install"=> false,
         "type"=> "chef-client",
         "config_template" => "{{pwd}}/packer_common_checkout/chef-zero-client.rb"
-      }
-    },
-    11 => {
-      "manual-chef-node-cleanup" => {
-        "type" => "shell",
-        "inline" => [
-          "set -e",
-          "sudo knife node delete localhost -s http://localhost:8889 -u localhost -y",
-          "sudo knife client delete localhost -s http://localhost:8889 -u localhost -y"
-        ]
       }
     },
     100 => {
