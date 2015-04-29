@@ -38,6 +38,16 @@ Racker::Processor.register_template do |t|
         "config_template" => "{{pwd}}/packer_common_checkout/chef-zero-client.rb"
       }
     },
+    11 => {
+      "manual-chef-node-cleanup" => {
+        "type" => "shell",
+        "inline" => [
+          "set -e",
+          "sudo knife node delete {{user `node_name`}} -s {{user `chef_server`}} -u {{user `node_name`}} -y",
+          "sudo knife client delete {{user `node_name`}} -s {{user `chef_server`}} -u {{user `node_name`}} -y"
+        ]
+      }
+    },
     100 => {
       "cleanup-network" => {
         "type"=> "shell",
