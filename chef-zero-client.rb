@@ -8,4 +8,4 @@ data_bag_path = "/etc/chef/data_bags"
 # Default Packer template
 log_level        :info
 log_location     STDOUT
-node_name "{{.NodeName}}"
+node_name "localhost"
