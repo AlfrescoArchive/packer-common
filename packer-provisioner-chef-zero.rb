@@ -9,7 +9,7 @@ Racker::Processor.register_template do |t|
         "install_command"=> "sudo bash -c 'curl -L https://www.opscode.com/chef/install.sh| bash -s -- -v 12.2.1'",
         "prevent_sudo"=> false,
         "skip_install"=> false,
-        "type"=> "chef-solo"
+        "type"=> "chef-client"
       }
     },
     100 => {
