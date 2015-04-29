@@ -1,6 +1,6 @@
 Racker::Processor.register_template do |t|
   t.provisioners = {
-    9 => {
+    5 => {
       "create-packer-folders" => {
         "type" => "shell",
         "inline" => [
@@ -10,6 +10,20 @@ Racker::Processor.register_template do |t|
           "sudo chown -R root:root /tmp/packer-chef-client",
           "sudo chmod 777 /tmp/packer-chef-client"
         ]
+      }
+    },
+    6 => {
+      "create-cookbooks" => {
+        "type": "file",
+        "source": "{{pwd}}/berks-cookbooks",
+        "destination": "/etc/chef/cookbooks"
+      }
+    },
+    7 => {
+      "create-databags" => {
+        "type": "file",
+        "source": "{{pwd}}/databags_checkout",
+        "destination": "/etc/chef/databags"
       }
     },
     10 => {
