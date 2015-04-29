@@ -35,7 +35,7 @@ Racker::Processor.register_template do |t|
         "prevent_sudo"=> false,
         "skip_install"=> false,
         "type"=> "chef-client",
-        "config_template" => "packer_common_checkout/chef-zero-client.rb"
+        "config_template" => "{{pwd}}/packer_common_checkout/chef-zero-client.rb"
       }
     },
     100 => {
