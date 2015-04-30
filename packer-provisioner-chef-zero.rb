@@ -34,6 +34,13 @@ Racker::Processor.register_template do |t|
         "destination"=> "/etc/chef/chef.pem"
       }
     },
+    9 => {
+      "copy-knife-rb" => {
+        "type" => "file",
+        "source"=> "{{pwd}}/packer_common_checkout/knife.rb",
+        "destination"=> "/etc/chef/knife.rb"
+      }
+    },
     10 => {
       "chef" => {
         "execute_command"=> "cd /etc/chef && \
@@ -41,8 +48,8 @@ Racker::Processor.register_template do |t|
         -c /tmp/packer-chef-client/client.rb \
         -j /tmp/packer-chef-client/first-boot.json \
         -l {{user `chef_log_level`}} && \
-        sudo knife node delete localhost -z -k /etc/chef/chef.pem -y && \
-        sudo knife client delete localhost -z -k /etc/chef/chef.pem -y",
+        sudo knife node delete localhost -c /etc/chef/knife.rb -z -k /etc/chef/chef.pem -y && \
+        sudo knife client delete localhost -c /etc/chef/knife.rb -z -k /etc/chef/chef.pem -y",
         "server_url" => "http://localhost:8889",
         "install_command"=> "sudo bash -c 'curl -L https://www.opscode.com/chef/install.sh| bash -s -- -v 12.2.1'",
         "prevent_sudo"=> false,
