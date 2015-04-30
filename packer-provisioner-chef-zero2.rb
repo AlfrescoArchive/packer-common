@@ -35,7 +35,7 @@ Racker::Processor.register_template do |t|
         "cookbook_paths"=> ["{{user `cookbook_path`}}"],
         "data_bags_path" => "{{user `data_bags_path`}}",
         # "execute_command"=> "sudo chef-solo --no-color -c {{.ConfigPath}} -j {{.JsonPath}} -l {{user `chef_log_level`}}",
-          "execute_command"=> "cat {{.ConfigPath}} && sudo chef-client --no-color --local-mode \
+          "execute_command"=> "cat {{.ConfigPath}} && ls /etc/chef/cookbooks && ls /etc/chef/data_bags && sudo chef-client --no-color --local-mode \
           -c {{.ConfigPath}} \
           -j {{.JsonPath}} \
           -l {{user `chef_log_level`}}",
