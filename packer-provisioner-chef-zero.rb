@@ -27,6 +27,13 @@ Racker::Processor.register_template do |t|
         "destination"=> "/etc/chef/data_bags"
       }
     },
+    8 => {
+      "copy-chef-pem" => {
+        "type" => "file",
+        "source"=> "{{pwd}}/packer_common_checkout/chef.pem",
+        "destination"=> "/etc/chef/chef.pem"
+      }
+    },
     10 => {
       "chef" => {
         "execute_command"=> "cd /etc/chef && \
