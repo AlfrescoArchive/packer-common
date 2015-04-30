@@ -1,5 +1,21 @@
 Racker::Processor.register_template do |t|
   t.provisioners = {
+    5 => {
+      "create-packer-folders" => {
+        "type" => "shell",
+        "inline" => [
+          # "set -e",
+          # "curl -L https://www.opscode.com/chef/install.sh | sudo bash -s -- -v 12.2.1",
+          # "install -d -m 755 -o ubuntu /tmp/packer-chef-client",
+          # "sudo install -d -m 777 -o root -g root /etc/chef"
+          "sudo mkdir -p /etc/chef",
+          "sudo chmod 777 /etc/chef",
+          # "sudo mkdir -p /tmp/packer-chef-client",
+          # "sudo chown -R root:root /tmp/packer-chef-client",
+          # "sudo chmod 777 /tmp/packer-chef-client"
+        ]
+      }
+    },
     6 => {
       "create-cookbooks" => {
         "type" => "file",
