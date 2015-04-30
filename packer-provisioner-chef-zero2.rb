@@ -7,8 +7,8 @@ Racker::Processor.register_template do |t|
         # "execute_command"=> "sudo chef-solo --no-color -c {{.ConfigPath}} -j {{.JsonPath}} -l {{user `chef_log_level`}}",
           "execute_command"=> "sudo chef-client --no-color --local-mode \
           -c {{.ConfigPath}} \
-          -j /tmp/packer-chef-client/first-boot.json \
-          -l :info",
+          -j {{.JsonPath}} \
+          -l {{user `chef_log_level`}}",
         "install_command"=> "sudo bash -c 'curl -L https://www.opscode.com/chef/install.sh| bash -s -- -v 12.2.1'",
         "prevent_sudo"=> false,
         "skip_install"=> false,
