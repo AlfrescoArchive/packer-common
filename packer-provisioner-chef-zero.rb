@@ -34,8 +34,8 @@ Racker::Processor.register_template do |t|
         -c /tmp/packer-chef-client/client.rb \
         -j /tmp/packer-chef-client/first-boot.json \
         -l {{user `chef_log_level`}} && \
-        sudo knife node delete localhost --no-host-key-verify -s http://localhost:8889 -u localhost -y && \
-        sudo knife client delete localhost --no-host-key-verify -s http://localhost:8889 -u localhost -y",
+        sudo knife node delete localhost -z -k /etc/chef/chef.pem -y && \
+        sudo knife client delete localhost -z -k /etc/chef/chef.pem -y",
         "server_url" => "http://localhost:8889",
         "install_command"=> "sudo bash -c 'curl -L https://www.opscode.com/chef/install.sh| bash -s -- -v 12.2.1'",
         "prevent_sudo"=> false,
