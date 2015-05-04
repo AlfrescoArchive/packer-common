@@ -38,14 +38,6 @@ Racker::Processor.register_template do |t|
         "config_template" => "{{pwd}}/packer_common_checkout/chef-zero-client.rb"
       }
     },
-    11 => {
-      "copy-chef-config" => {
-        "type" => "shell",
-        "inline" => [
-          "sudo cp /tmp/packer-chef-solo/solo.rb /etc/chef/client.rb"
-        ]
-      }
-    },
     100 => {
       "cleanup-network" => {
         "type"=> "shell",
