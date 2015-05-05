@@ -18,8 +18,10 @@ Racker::Processor.register_template do |t|
     "source_path" => "{{user `source_path`}}",
     "output_directory" => "{{user `output_directory`}}",
     "vm_name" => "{{user `vm_name`}}",
-    "ssh_username"=> "vagrant",
-    "ssh_password"=> "vagrant",
+    # "ssh_username"=> "vagrant",
+    # "ssh_password"=> "vagrant",
+    "ssh_username"=> "centos",
+    "ssh_password"=> "centos",
     "boot_command"=> [
       "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-ovf.cfg<enter><wait>"
     ],
