@@ -18,17 +18,18 @@ Racker::Processor.register_template do |t|
     "source_path" => "{{user `source_path`}}",
     "output_directory" => "{{user `output_directory`}}",
     "vm_name" => "{{user `vm_name`}}",
-    # "ssh_username"=> "vagrant",
-    # "ssh_password"=> "vagrant",
-    "ssh_username"=> "centos",
-    "ssh_password"=> "centos",
+    "ssh_username"=> "vagrant",
+    "ssh_password"=> "vagrant",
+    # "ssh_username"=> "centos",
     "boot_command"=> [
       "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-ovf.cfg<enter><wait>"
     ],
-    "guest_additions_path"=> "VBoxGuestAdditions_{{.Version}}.iso",
-    "guest_additions_sha256"=> "2a87971ae3c7e57e87713967a6f242acbdafcc09b635cba98e6dd3a7f5292d3b",
-    "headless"=> "true",
+    "guest_additions_mode" => "disable"
+    # "guest_additions_path"=> "VBoxGuestAdditions_{{.Version}}.iso",
+    # "guest_additions_sha256"=> "2a87971ae3c7e57e87713967a6f242acbdafcc09b635cba98e6dd3a7f5292d3b",
+    "headless"=> "false",
     "shutdown_command"=> "echo 'vagrant' | sudo -S /sbin/halt -p",
+    "shutdown_command"=> "sudo /sbin/halt -p",
     "vboxmanage"=> {
       'memory'  => [ 'modifyvm', '{{.Name}}', '--memory',    '1024' ],
       'cpus'    => [ 'modifyvm', '{{.Name}}', '--cpus',      '1' ],
