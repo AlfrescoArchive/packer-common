@@ -24,7 +24,7 @@ Racker::Processor.register_template do |t|
     "boot_command"=> [
       "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-ovf.cfg<enter><wait>"
     ],
-    "guest_additions_mode" => "disable"
+    "guest_additions_mode" => "disable",
     # "guest_additions_path"=> "VBoxGuestAdditions_{{.Version}}.iso",
     # "guest_additions_sha256"=> "2a87971ae3c7e57e87713967a6f242acbdafcc09b635cba98e6dd3a7f5292d3b",
     "headless"=> "false",
