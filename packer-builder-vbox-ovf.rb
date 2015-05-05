@@ -29,7 +29,7 @@ Racker::Processor.register_template do |t|
     # "guest_additions_sha256"=> "2a87971ae3c7e57e87713967a6f242acbdafcc09b635cba98e6dd3a7f5292d3b",
     "headless"=> "false",
     "shutdown_command"=> "echo 'vagrant' | sudo -S /sbin/halt -p",
-    "shutdown_command"=> "sudo /sbin/halt -p",
+    # "shutdown_command"=> "sudo /sbin/halt -p",
     "vboxmanage"=> {
       'memory'  => [ 'modifyvm', '{{.Name}}', '--memory',    '1024' ],
       'cpus'    => [ 'modifyvm', '{{.Name}}', '--cpus',      '1' ],
