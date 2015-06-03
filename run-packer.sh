@@ -34,7 +34,11 @@ GITHUB_PREFIX="git@github.com:"
 if [ -z "$PACKER_BIN" ]; then
   export PACKER_BIN=packer
 fi
-PACKER_RUN_FOLDER="packer-run/$TIMESTAMP"
+
+WORKING_DIR=/tmp
+PACKER_RUN_ROOT_FOLDER="$WORKING_DIR/packer-run"
+PACKER_RUN_FOLDER="$PACKER_RUN_ROOT_FOLDER/$TIMESTAMP"
+PACKER_RUN_LOG="$PACKER_RUN_FOLDER/packer-run.log"
 
 if [ -z "$ENV_FILE" ]; then
   echo "ERROR: .env file not specified
@@ -48,11 +52,11 @@ fi
 mkdir -p $PACKER_RUN_FOLDER
 cd $PACKER_RUN_FOLDER
 
-echo "run-packer.sh started - `date`" >> packer-run.log
-rm $ROOT_FOLDER/packer-run/latest.log
-rm $ROOT_FOLDER/packer-run/latest-run
-ln -s $PWD/packer-run.log $ROOT_FOLDER/packer-run/latest.log
-ln -s $PWD $ROOT_FOLDER/packer-run/latest-run
+echo "run-packer.sh started - `date`" >> $PACKER_RUN_LOG
+rm $PACKER_RUN_ROOT_FOLDER/latest.log
+rm $PACKER_RUN_ROOT_FOLDER/latest-run
+ln -s $PACKER_RUN_FOLDER/packer-run.log $PACKER_RUN_ROOT_FOLDER/latest.log
+ln -s $PACKER_RUN_FOLDER $PACKER_RUN_ROOT_FOLDER/latest-run
 
 #Determine Github SSH or HTTPS endpoints
 if [ "$GITHUB_ENDPOINT_TYPE" = "https" ]; then
@@ -61,42 +65,42 @@ fi
 
 # Download packer-common.rb and ks.cfg
 if [ -n "$GITHUB_PACKER_REPO" ]; then
-  echo "Checking out Github repo: $GITHUB_PREFIX$GITHUB_PACKER_REPO.git" >> packer-run.log
-  git clone $GITHUB_PREFIX$GITHUB_PACKER_REPO.git packer_common_checkout >> packer-run.log
+  echo "Checking out Github repo: $GITHUB_PREFIX$GITHUB_PACKER_REPO.git" >> $PACKER_RUN_LOG
+  git clone $GITHUB_PREFIX$GITHUB_PACKER_REPO.git packer_common_checkout >> $PACKER_RUN_LOG
   cd packer_common_checkout
-  git checkout $GITHUB_PACKER_VERSION >> ../packer-run.log
+  git checkout $GITHUB_PACKER_VERSION >> $PACKER_RUN_LOG
   cd -
 
-  export KS_DIRECTORY=./packer_common_checkout/$GITHUB_PACKER_REL_PATH
-  PACKER_BUILDER_TPL=./packer_common_checkout/$GITHUB_PACKER_REL_PATH/packer-builder-$PACKER_BUILDER_TPL_NAME.rb
-  PACKER_PROVISIONER_TPL=./packer_common_checkout/$GITHUB_PACKER_REL_PATH/packer-provisioner-$PACKER_PROVISIONER_TPL_NAME.rb
+  export KS_DIRECTORY=$PACKER_RUN_FOLDER/packer_common_checkout/$GITHUB_PACKER_REL_PATH
+  PACKER_BUILDER_TPL=$PACKER_RUN_FOLDER/packer_common_checkout/$GITHUB_PACKER_REL_PATH/packer-builder-$PACKER_BUILDER_TPL_NAME.rb
+  PACKER_PROVISIONER_TPL=$PACKER_RUN_FOLDER/packer_common_checkout/$GITHUB_PACKER_REL_PATH/packer-provisioner-$PACKER_PROVISIONER_TPL_NAME.rb
 fi
 
 # Download data_bags
 if [ -n "$GITHUB_DATABAGS_REPO" ]; then
-  echo "Checking out Github repo: $GITHUB_PREFIX$GITHUB_DATABAGS_REPO.git" >> packer-run.log
-  git clone $GITHUB_PREFIX$GITHUB_DATABAGS_REPO.git databags_checkout >> packer-run.log
+  echo "Checking out Github repo: $GITHUB_PREFIX$GITHUB_DATABAGS_REPO.git" >> $PACKER_RUN_LOG
+  git clone $GITHUB_PREFIX$GITHUB_DATABAGS_REPO.git databags_checkout >> $PACKER_RUN_LOG
   cd databags_checkout
-  git checkout $GITHUB_DATABAGS_VERSION  >> ../packer-run.log
+  git checkout $GITHUB_DATABAGS_VERSION  >> $PACKER_RUN_LOG
   cd -
 
-  export DATA_BAGS_PATH=./databags_checkout/$GITHUB_DATABAGS_REL_PATH
+  export DATA_BAGS_PATH=$PACKER_RUN_FOLDER/databags_checkout/$GITHUB_DATABAGS_REL_PATH
 fi
 
 # Installs racker command
 RACKER_GEM=`gem list | grep "racker (0.1.6)"`
 if [ -z "$RACKER_GEM" ]; then
-  gem install racker >> packer-run.log
+  gem install racker >> $PACKER_RUN_LOG
 else
-  echo "racker gem 0.1.6 already installed" >> packer-run.log
+  echo "racker gem 0.1.6 already installed" >> $PACKER_RUN_LOG
 fi
 
 # Resolves all Chef cookbooks needed for provisioning in the local berks-cookbooks folder
 rm -Rf $BERKS_FILE.lock
-berks vendor -b $BERKS_FILE >> packer-run.log
+berks vendor -b $BERKS_FILE >> $PACKER_RUN_LOG
 
 # Generate Packer JSON Template, from Racker .rb files
-racker $PACKER_BUILDER_TPL $PACKER_PROVISIONER_TPL $PACKER_INSTANCE_TPL packer.json >> packer-run.log
+racker $PACKER_BUILDER_TPL $PACKER_PROVISIONER_TPL $PACKER_INSTANCE_TPL packer.json >> $PACKER_RUN_LOG
 
 export PACKER_CACHE_DIR
 
@@ -105,9 +109,9 @@ if [ "$PACKER_LOG" = "1" ]; then
   DEBUG="-debug"
 fi
 
-$PACKER_BIN build $DEBUG packer.json >> packer-run.log
+$PACKER_BIN build $DEBUG packer.json >> $PACKER_RUN_LOG
 # TODO - upload Vagrant box somewhere inside VPN boundaries
 
-echo "run-packer.sh finished - `date`" >> packer-run.log
+echo "run-packer.sh finished - `date`" >> $PACKER_RUN_LOG
 
 cd $ROOT_FOLDER
