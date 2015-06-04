@@ -85,6 +85,7 @@ if [ -n "$GITHUB_DATABAGS_REPO" ]; then
   cd -
 
   export DATA_BAGS_PATH=$PACKER_RUN_FOLDER/databags_checkout/$GITHUB_DATABAGS_REL_PATH
+  echo "Final Databags Path is $DATA_BAGS_PATH" >> $PACKER_RUN_LOG
 fi
 
 # Installs racker command
