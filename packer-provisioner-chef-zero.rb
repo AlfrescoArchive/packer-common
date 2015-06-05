@@ -12,14 +12,14 @@ Racker::Processor.register_template do |t|
     6 => {
       "create-cookbooks" => {
         "type" => "file",
-        "source"=> "{{pwd}}/berks-cookbooks",
+        "source"=> "{{user `cookbook_path`}}",
         "destination"=> "/etc/chef/cookbooks"
       }
     },
     7 => {
       "create-databags" => {
         "type"=> "file",
-        "source"=> "{{pwd}}/databags_checkout",
+        "source"=> "{{user `data_bags_path`}}",
         "destination"=> "/etc/chef/data_bags"
       }
     },
