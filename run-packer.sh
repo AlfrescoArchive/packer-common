@@ -110,7 +110,9 @@ if [ "$PACKER_LOG" = "1" ]; then
   DEBUG="-debug"
 fi
 
-$PACKER_BIN build $DEBUG packer.json >> $PACKER_RUN_LOG
+mkdir packer-exec-dir ; cd packer-exec-dir
+$PACKER_BIN build $DEBUG ../packer.json >> $PACKER_RUN_LOG
+
 # TODO - upload Vagrant box somewhere inside VPN boundaries
 
 echo "run-packer.sh finished - `date`" >> $PACKER_RUN_LOG
