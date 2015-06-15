@@ -1,3 +1,6 @@
+> Working on a Packer Pull request to deprecate Packer Common (much cleaner)
+> https://github.com/maoo/packer/tree/chef-solo-precommands
+
 Packer Common
 ---
 
