@@ -48,6 +48,9 @@ fi
 
 . $ENV_FILE
 
+# Cleanup any previous runs or kitchen local runs
+rm -rf vbox-output *.tar.gz packer_cache .kitchen
+
 # Create Packer Run folder
 mkdir -p $PACKER_RUN_FOLDER
 cd $PACKER_RUN_FOLDER
