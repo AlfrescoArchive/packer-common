@@ -31,7 +31,7 @@ Racker::Processor.register_template do |t|
           -c {{.ConfigPath}} \
           -j {{.JsonPath}} \
           -l {{user `chef_log_level`}}",
-        "install_command"=> "sudo bash -c 'curl -L https://www.opscode.com/chef/install.sh| bash -s -- -v 12.2.1'",
+        "install_command"=> "sudo bash -c 'curl -L https://www.opscode.com/chef/install.sh| bash -s -- -v 12.3.0'",
         "prevent_sudo"=> false,
         "skip_install"=> false,
         "type"=> "chef-solo",
