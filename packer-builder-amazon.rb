@@ -16,7 +16,7 @@ Racker::Processor.register_template do |t|
     # Coordinates for generated AMI
     "ami_name"=> "{{env `AMI_NAME`}}",
     "ami_description"=> "{{env `AMI_DESCRIPTION`}}",
-    "ami_user_1" => "{{env `AMI_USER_1`}}",
+    "ami_users" => {{env `AMI_USERS`}},
     "ssh_username" => "{{env `SSH_USERNAME`}}",
     # Chef Provisioning parameters
     "data_bags_path" => "{{env `DATA_BAGS_PATH`}}",
@@ -38,7 +38,7 @@ Racker::Processor.register_template do |t|
     "ami_name"=> "{{user `ami_name`}}",
     "ami_description"=> "{{user `ami_description`}}",
     "ami_virtualization_type" => "{{user `ami_virtualization_type`}}",
-    "ami_users" => ["{{user `ami_user_1`}}"],
+    "ami_users" => {{user `ami_users`}},
     "enhanced_networking" => "{{user `enhanced_networking`}}",
   }
 end
