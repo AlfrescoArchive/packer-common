@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# run-packer [.env file]
+# run-packer.sh [.env file]
 # .env file must define some variables, read below.
 #
 # Hereby the list of actions performed by this script.
