@@ -15,6 +15,9 @@ if [ -z "$ARTIFACT_ID" ]; then
   export ARTIFACT_ID=`echo ${GIT_REPO%????} | cut -d "/" -f 5`
 fi
 
+export GIT_PREFIX=git@github.com
+export GIT_ACCOUNT_NAME=`echo ${GIT_REPO%????} | cut -d "/" -f 4`
+
 export PATH=/usr/local/packer:/opt/apache-maven/bin:/Users/Shared/apache-maven/3.2.3/bin:$HOME/.chefdk/gem/ruby/2.1.0/bin:/opt/chefdk/bin:/opt/chefdk/embedded/bin:$PATH
 
 # Fixes issue https://github.com/berkshelf/berkshelf-api/issues/112
@@ -70,7 +73,7 @@ function release () {
   echo "[release.sh] Packer completed"
   echo "[release.sh] deploy release disabled"
   echo "[release.sh] Setting git remote"
-  git remote set-url origin $GIT_REPO
+  git remote set-url origin $GIT_PREFIX:$GIT_ACCOUNT_NAME/$ARTIFACT_ID.git
   echo "[release.sh] Git tag $(getCurrentVersion)"
   git tag -a "v$(getCurrentVersion)" -m "releasing v$(getCurrentVersion)"
   git push origin --tags
