@@ -6,6 +6,9 @@
 # export MVN_REPO_URL=http://artifacts.acme.com/nexus
 # export GROUP_ID=my.acme.project
 
+# Optional variables
+# export SKIP_PACKER=true
+
 # Exit at first failure
 set -e
 
@@ -69,8 +72,13 @@ function deploySnapshot () {
 
 function release () {
   echo "[release.sh] invoking Packer"
+  
   export VERSION=$(getCurrentVersion)
-  curl -L https://raw.githubusercontent.com/Alfresco/packer-common/master/run-packer.sh --no-sessionid | bash -s -- ./ami.env
+  
+  if [ ! "$SKIP_PACKER" = true ] ; then
+    curl -L https://raw.githubusercontent.com/Alfresco/packer-common/master/run-packer.sh --no-sessionid | bash -s -- ./ami.env
+  fi
+  
   echo "[release.sh] Packer completed"
   echo "[release.sh] deploy release disabled"
   echo "[release.sh] Setting git remote"
