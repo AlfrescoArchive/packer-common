@@ -6,6 +6,9 @@
 # export MVN_REPO_URL=http://artifacts.acme.com/nexus
 # export GROUP_ID=my.acme.project
 
+# Exit at first failure
+set -e
+
 # If ARTIFACT_ID is not set, extract it from GIT_REPO
 # Right now it only supports HTTP Git urls
 if [ -z "$ARTIFACT_ID" ]; then
