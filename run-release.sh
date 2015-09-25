@@ -69,6 +69,7 @@ function deploySnapshot () {
 
 function release () {
   echo "[release.sh] invoking Packer"
+  export VERSION=$(getCurrentVersion)
   curl -L https://raw.githubusercontent.com/Alfresco/packer-common/master/run-packer.sh --no-sessionid | bash -s -- ./ami.env
   echo "[release.sh] Packer completed"
   echo "[release.sh] deploy release disabled"
