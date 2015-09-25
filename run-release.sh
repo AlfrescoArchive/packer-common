@@ -86,7 +86,7 @@ function release () {
   
   echo "[release.sh] Packer completed"
   echo "[release.sh] deploy release disabled"
-  echo "[release.sh] Setting git remote"
+  echo "[release.sh] Setting git remote to $GIT_PREFIX:$GIT_ACCOUNT_NAME/$GIT_PROJECT_NAME.git"
   git remote set-url origin $GIT_PREFIX:$GIT_ACCOUNT_NAME/$GIT_PROJECT_NAME.git
   echo "[release.sh] Git tag $(getCurrentVersion)"
   git tag -a "v$(getCurrentVersion)" -m "releasing v$(getCurrentVersion)"
