@@ -4,8 +4,9 @@
 # export GIT_REPO=${bamboo.planRepository.repositoryUrl}
 # export MVN_REPO_ID=my-repo-id
 # export MVN_REPO_URL=http://artifacts.acme.com/nexus
-# export ARTIFACT_ID=my-chef-cookbook
 # export GROUP_ID=my.acme.project
+
+export ARTIFACT_ID=`echo ${GIT_REPO%????} | cut -d "/" -f 2`
 
 export PATH=/usr/local/packer:/opt/apache-maven/bin:/Users/Shared/apache-maven/3.2.3/bin:$HOME/.chefdk/gem/ruby/2.1.0/bin:/opt/chefdk/bin:/opt/chefdk/embedded/bin:$PATH
 
