@@ -16,9 +16,11 @@ set -e
 # Right now it only supports HTTP Git urls
 if [ -z "$ARTIFACT_ID" ]; then
   export ARTIFACT_ID=`echo ${GIT_REPO%????} | cut -d "/" -f 5`
+  echo "[release.sh] Setting ARTIFACT_ID=$ARTIFACT_ID"
 fi
 if [ -z "$GIT_PROJECT_NAME" ]; then
   export GIT_PROJECT_NAME=$ARTIFACT_ID
+  echo "[release.sh] Setting GIT_PROJECT_NAME=$ARTIFACT_ID"
 fi
 
 export GIT_PREFIX=git@github.com
