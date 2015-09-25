@@ -17,6 +17,9 @@ set -e
 if [ -z "$ARTIFACT_ID" ]; then
   export ARTIFACT_ID=`echo ${GIT_REPO%????} | cut -d "/" -f 5`
 fi
+if [ -z "$GIT_PROJECT_NAME" ]; then
+  export GIT_PROJECT_NAME=$ARTIFACT_ID
+fi
 
 export GIT_PREFIX=git@github.com
 export GIT_ACCOUNT_NAME=`echo ${GIT_REPO%????} | cut -d "/" -f 4`
