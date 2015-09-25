@@ -7,8 +7,9 @@
 # export GROUP_ID=my.acme.project
 
 # If ARTIFACT_ID is not set, extract it from GIT_REPO
+# Right now it only supports HTTP Git urls
 if [ -z "$ARTIFACT_ID" ]; then
-  export ARTIFACT_ID=`echo ${GIT_REPO%????} | cut -d "/" -f 2`
+  export ARTIFACT_ID=`echo ${GIT_REPO%????} | cut -d "/" -f 5`
 fi
 
 export PATH=/usr/local/packer:/opt/apache-maven/bin:/Users/Shared/apache-maven/3.2.3/bin:$HOME/.chefdk/gem/ruby/2.1.0/bin:/opt/chefdk/bin:/opt/chefdk/embedded/bin:$PATH
