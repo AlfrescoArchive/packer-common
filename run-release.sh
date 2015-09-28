@@ -99,7 +99,7 @@ function release () {
   git pull origin master
   git stash pop
   git add metadata.rb
-  git commit -m "Bumping version to v$next_version"
+  git commit -m "Bumping version to v$(getCurrentVersion)"
   git push origin master
   echo "[run-release.sh] Release completed!"
 }
