@@ -2,7 +2,7 @@
 
 # Variables to define before invoking release.sh
 # export GIT_REPO=${bamboo.planRepository.repositoryUrl}
-# export MVN_REPO_ID=my-repo-id
+# export MVN_REPO_CREDS_ID=my-repo-id
 # export MVN_REPO_URL=http://artifacts.acme.com/nexus
 # export GROUP_ID=my.acme.project
 
@@ -12,6 +12,11 @@
 # Exit at first failure
 set -e
 
+# If MVN_REPO_ID is not set, use internal-snapshots
+if [ -z "$MVN_REPO_ID" ]; then
+  export MVN_REPO_ID="internal-snapshots"
+  echo "[run-release.sh] Setting MVN_REPO_ID=$MVN_REPO_ID"
+fi
 # If ARTIFACT_ID is not set, extract it from GIT_REPO
 # Right now it only supports HTTP Git urls
 if [ -z "$ARTIFACT_ID" ]; then
@@ -62,10 +67,10 @@ function deploy () {
   echo "[run-release.sh] Deploy $1"
   repo_name="internal-releases"
   if [[ $1 == *SNAPSHOT ]]; then
-    repo_name="internal-snapshots"
+    repo_name=$MVN_REPO_ID
   fi
 
-  mvn deploy:deploy-file -Dfile=$(echo *.tar.gz) -DrepositoryId=$MVN_REPO_ID -Durl=$MVN_REPO_URL/content/repositories/$repo_name -DgroupId=$GROUP_ID  -DartifactId=$ARTIFACT_ID -Dversion=$1 -Dpackaging=tar.gz
+  mvn deploy:deploy-file -Dfile=$(echo *.tar.gz) -DrepositoryId=$MVN_REPO_CREDS_ID -Durl=$MVN_REPO_URL/content/repositories/$repo_name -DgroupId=$GROUP_ID  -DartifactId=$ARTIFACT_ID -Dversion=$1 -Dpackaging=tar.gz
 }
 
 function deploySnapshot () {
