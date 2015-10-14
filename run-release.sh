@@ -13,21 +13,8 @@
 # Exit at first failure
 set -e
 
-# If MVN_REPO_CREDS_ID is not set, use alfresco-internal
-if [ -z "$MVN_REPO_CREDS_ID" ]; then
-  export MVN_REPO_CREDS_ID="alfresco-internal"
-  echo "[run-release.sh] Setting MVN_REPO_CREDS_ID=$MVN_REPO_CREDS_ID"
-else
-  echo "[run-release.sh] MVN_REPO_CREDS_ID=$MVN_REPO_CREDS_ID"
-fi
-
-# If MVN_REPO_ID is not set, use internal-snapshots
-if [ -z "$MVN_REPO_ID" ]; then
-  export MVN_REPO_ID="internal-snapshots"
-  echo "[run-release.sh] Setting MVN_REPO_ID=$MVN_REPO_ID"
-else
-  echo "[run-release.sh] MVN_REPO_ID=$MVN_REPO_ID"
-fi
+echo "[run-release.sh] MVN_REPO_CREDS_ID=$MVN_REPO_CREDS_ID"
+echo "[run-release.sh] MVN_REPO_ID=$MVN_REPO_ID"
 
 # If ARTIFACT_ID is not set, extract it from GIT_REPO
 # Right now it only supports HTTP Git urls
@@ -82,10 +69,7 @@ function incrementVersion () {
 
 function deploy () {
   echo "[run-release.sh] Deploy $1"
-  repo_name="internal-releases"
-  if [[ $1 == *SNAPSHOT ]]; then
-    repo_name=$MVN_REPO_ID
-  fi
+  repo_name=$MVN_REPO_ID
 
   mvn deploy:deploy-file -Dfile=$(echo *.tar.gz) -DrepositoryId=$MVN_REPO_CREDS_ID -Durl=$MVN_REPO_URL/content/repositories/$repo_name -DgroupId=$GROUP_ID  -DartifactId=$ARTIFACT_ID -Dversion=$1 -Dpackaging=tar.gz
 }
