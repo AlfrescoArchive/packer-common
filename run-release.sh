@@ -17,21 +17,32 @@ set -e
 if [ -z "$MVN_REPO_CREDS_ID" ]; then
   export MVN_REPO_CREDS_ID="alfresco-internal"
   echo "[run-release.sh] Setting MVN_REPO_CREDS_ID=$MVN_REPO_CREDS_ID"
+else
+  echo "[run-release.sh] MVN_REPO_CREDS_ID=$MVN_REPO_CREDS_ID"
 fi
+
 # If MVN_REPO_ID is not set, use internal-snapshots
 if [ -z "$MVN_REPO_ID" ]; then
   export MVN_REPO_ID="internal-snapshots"
   echo "[run-release.sh] Setting MVN_REPO_ID=$MVN_REPO_ID"
+else
+  echo "[run-release.sh] MVN_REPO_ID=$MVN_REPO_ID"
 fi
+
 # If ARTIFACT_ID is not set, extract it from GIT_REPO
 # Right now it only supports HTTP Git urls
 if [ -z "$ARTIFACT_ID" ]; then
   export ARTIFACT_ID=`echo ${GIT_REPO%????} | cut -d "/" -f 5`
   echo "[run-release.sh] Setting ARTIFACT_ID=$ARTIFACT_ID"
+else
+  echo "[run-release.sh] ARTIFACT_ID=$ARTIFACT_ID"
 fi
+
 if [ -z "$GIT_PROJECT_NAME" ]; then
   export GIT_PROJECT_NAME=$ARTIFACT_ID
   echo "[run-release.sh] Setting GIT_PROJECT_NAME=$ARTIFACT_ID"
+else
+  echo "[run-release.sh] GIT_PROJECT_NAME=$ARTIFACT_ID"
 fi
 
 export GIT_PREFIX=git@github.com
