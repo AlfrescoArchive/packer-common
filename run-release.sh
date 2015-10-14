@@ -2,7 +2,8 @@
 
 # Variables to define before invoking release.sh
 # export GIT_REPO=${bamboo.planRepository.repositoryUrl}
-# export MVN_REPO_CREDS_ID=my-repo-id
+# export MVN_REPO_ID=my-repo-id
+# export MVN_REPO_CREDS_ID=my-repo-credentials-id
 # export MVN_REPO_URL=http://artifacts.acme.com/nexus
 # export GROUP_ID=my.acme.project
 
@@ -12,6 +13,11 @@
 # Exit at first failure
 set -e
 
+# If MVN_REPO_CREDS_ID is not set, use alfresco-internal
+if [ -z "$MVN_REPO_CREDS_ID" ]; then
+  export MVN_REPO_CREDS_ID="alfresco-internal"
+  echo "[run-release.sh] Setting MVN_REPO_CREDS_ID=$MVN_REPO_CREDS_ID"
+fi
 # If MVN_REPO_ID is not set, use internal-snapshots
 if [ -z "$MVN_REPO_ID" ]; then
   export MVN_REPO_ID="internal-snapshots"
