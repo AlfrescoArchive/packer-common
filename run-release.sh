@@ -53,9 +53,14 @@ function runTests () {
   if ! grep -q foodcritic "gems.list"; then
     gem install rails-erb-check
   end
+  if ! grep -q foodcritic "gems.list"; then
+    gem install jsonlint
+  end
   find . -name "*.erb" -exec rails-erb-check {} \;
+  find . -name "*.json" -exec jsonlint {} \;
   knife cookbook test cookbook -o ./ -a
   foodcritic -f any .
+  rm -rf gems.list
 }
 
 function buildArtifact () {
