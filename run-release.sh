@@ -44,16 +44,16 @@ export LANG=en_US.UTF-8
 function runTests () {
   echo "[run-release.sh] Running Chef, Foodcritic and ERB syntax check tests"
   gem list > gems.list
-  if ! grep -q foodcritic "gems.list"; then
+  if grep -L foodcritic gems.list; then
     gem install foodcritic
   end
-  if ! grep -q foodcritic "gems.list"; then
+  if grep -L foodcritic gems.list; then
     gem install berkshelf
   end
-  if ! grep -q foodcritic "gems.list"; then
+  if grep -L foodcritic gems.list; then
     gem install rails-erb-check
   end
-  if ! grep -q foodcritic "gems.list"; then
+  if grep -L foodcritic gems.list; then
     gem install jsonlint
   end
   find . -name "*.erb" -exec rails-erb-check {} \;
