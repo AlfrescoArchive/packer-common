@@ -46,16 +46,16 @@ function runTests () {
   gem list > gems.list
   if grep -L foodcritic gems.list; then
     gem install foodcritic
-  end
+  fi
   if grep -L foodcritic gems.list; then
     gem install berkshelf
-  end
+  fi
   if grep -L foodcritic gems.list; then
     gem install rails-erb-check
-  end
+  fi
   if grep -L foodcritic gems.list; then
     gem install jsonlint
-  end
+  fi
   find . -name "*.erb" -exec rails-erb-check {} \;
   find . -name "*.json" -exec jsonlint {} \;
   knife cookbook test cookbook -o ./ -a
