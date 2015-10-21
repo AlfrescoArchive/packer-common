@@ -42,8 +42,10 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 function buildArtifact () {
-  echo "[run-release.sh] Building Chef artifact"
-  /opt/chefdk/embedded/bin/rake
+  echo "[run-release.sh] Building Chef artifact with Berkshelf"
+  rm -rf Berksfile.lock *.tar.gz; berks package berks-cookbooks.tar.gz
+  # old implementation
+  # /opt/chefdk/embedded/bin/rake
 }
 
 function getCurrentVersion () {
