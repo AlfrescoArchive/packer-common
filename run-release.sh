@@ -41,7 +41,25 @@ export PATH=/usr/local/packer:/opt/apache-maven/bin:/Users/Shared/apache-maven/3
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+function runTests () {
+  echo "[run-release.sh] Running Chef, Foodcritic and ERB syntax check tests"
+  gem list > gems.list
+  if ! grep -q foodcritic "gems.list"; then
+    gem install foodcritic
+  end
+  if ! grep -q foodcritic "gems.list"; then
+    gem install berkshelf
+  end
+  if ! grep -q foodcritic "gems.list"; then
+    gem install rails-erb-check
+  end
+  find . -name "*.erb" -exec rails-erb-check {} \;
+  knife cookbook test cookbook -o ./ -a
+  foodcritic -f any .
+}
+
 function buildArtifact () {
+  runTests
   echo "[run-release.sh] Building Chef artifact with Berkshelf"
   rm -rf Berksfile.lock *.tar.gz; berks package berks-cookbooks.tar.gz
   # old implementation
