@@ -66,8 +66,13 @@ function runTests () {
 
 function buildArtifact () {
   runTests
-  echo "[run-release.sh] Building Chef artifact with Berkshelf"
-  rm -rf Berksfile.lock *.tar.gz; berks package berks-cookbooks.tar.gz
+  if [ -s Berksfile ]; then
+    echo "[run-release.sh] Building Chef artifact with Berkshelf"
+    rm -rf Berksfile.lock *.tar.gz; berks package berks-cookbooks.tar.gz
+  elif [ -d data_bags ]; then
+    echo "[run-release.sh] Building Chef Databags artifact"
+    rm -rf *.tar.gz; tar cfvz alfresco-databags.tar.gz ./data_bags
+  fi
   # old implementation
   # /opt/chefdk/embedded/bin/rake
 }
