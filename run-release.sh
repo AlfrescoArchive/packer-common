@@ -58,6 +58,7 @@ function runTests () {
   fi
   find . -name "*.erb" -exec rails-erb-check {} \;
   find . -name "*.json" -exec jsonlint {} \;
+  find . -name "*.rb" -exec ruby -c {} \;
   knife cookbook test cookbook -o ./ -a
   # TODO - should be enabled but tag/rule exclusion (using ~) doesn't work!
   # foodcritic -t ~FC014 -f any .
@@ -143,6 +144,8 @@ function release () {
 
 MODE=$1
 
+if [ "$MODE" == "test" ]; then
+  runTests
 if [ "$MODE" == "snapshot" ]; then
   deploySnapshot
 elif [ "$MODE" == "nextversion" ]; then
