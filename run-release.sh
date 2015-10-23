@@ -63,10 +63,9 @@ function runTests () {
   find . -name "*.json" -exec jsonlint {} \;
   find . -name "*.rb" -exec ruby -c {} \;
   knife cookbook test cookbook -o ./ -a
+  foodcritic -f any .
   # Next one should use warning as fail-level, but we need to fix some stuff in the Chef code first
   rubocop --fail-level error .
-  # TODO - should be enabled but tag/rule exclusion (using ~) doesn't work!
-  # foodcritic -t ~FC014 -f any .
   rm -rf gems.list
 }
 
