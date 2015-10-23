@@ -47,19 +47,24 @@ function runTests () {
   if grep -L foodcritic gems.list; then
     gem install foodcritic
   fi
-  if grep -L foodcritic gems.list; then
+  if grep -L berkshelf gems.list; then
     gem install berkshelf
   fi
-  if grep -L foodcritic gems.list; then
+  if grep -L rails-erb-check gems.list; then
     gem install rails-erb-check
   fi
-  if grep -L foodcritic gems.list; then
+  if grep -L jsonlint gems.list; then
     gem install jsonlint
+  fi
+  if grep -L rubocop gems.list; then
+    gem install rubocop
   fi
   find . -name "*.erb" -exec rails-erb-check {} \;
   find . -name "*.json" -exec jsonlint {} \;
   find . -name "*.rb" -exec ruby -c {} \;
   knife cookbook test cookbook -o ./ -a
+  # Next one should use warning as fail-level, but we need to fix some stuff in the Chef code first
+  rubocop --fail-level error .
   # TODO - should be enabled but tag/rule exclusion (using ~) doesn't work!
   # foodcritic -t ~FC014 -f any .
   rm -rf gems.list
