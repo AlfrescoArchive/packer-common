@@ -146,7 +146,7 @@ MODE=$1
 
 if [ "$MODE" == "test" ]; then
   runTests
-if [ "$MODE" == "snapshot" ]; then
+elif [ "$MODE" == "snapshot" ]; then
   deploySnapshot
 elif [ "$MODE" == "nextversion" ]; then
   getIncrementedVersion
