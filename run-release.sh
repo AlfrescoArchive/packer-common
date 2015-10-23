@@ -65,7 +65,7 @@ function runTests () {
   knife cookbook test cookbook -o ./ -a
   foodcritic -f any .
   # Next one should use warning as fail-level, but we need to fix some stuff in the Chef code first
-  rubocop --fail-level error .
+  rubocop --fail-level warn
   rm -rf gems.list
 }
 
