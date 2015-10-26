@@ -59,9 +59,13 @@ function runTests () {
   if grep -L rubocop gems.list; then
     gem install rubocop
   fi
+  if grep -L yaml-lint gems.list; then
+    gem install yaml-lint
+  fi
   find . -name "*.erb" -exec rails-erb-check {} \;
   find . -name "*.json" -exec jsonlint {} \;
   find . -name "*.rb" -exec ruby -c {} \;
+  find . -name "*.yml" -exec yaml-lint {} \;
   knife cookbook test cookbook -o ./ -a
   foodcritic -f any .
   # Next one should use warning as fail-level, but we need to fix some stuff in the Chef code first
