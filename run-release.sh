@@ -9,6 +9,7 @@
 
 # Optional variables
 # export SKIP_PACKER=true
+# export GIT_TOKEN=blablablabla
 
 # Exit at first failure
 set -e
@@ -113,9 +114,11 @@ function incrementVersion () {
   rm -f metadata.rb
   mv metadata.rb.tmp metadata.rb
   
-  echo "[run-release.sh] Adding $currentVersion to CHANGELOG.md"
-  github_changelog_generator -u Alfresco -p chef-alfresco -t $GIT_TOKEN
-  sed -i '/- Update /d' ./CHANGELOG.md
+  if [ -n "$GIT_TOKEN" ]; then
+    echo "[run-release.sh] Adding $currentVersion to CHANGELOG.md"
+    github_changelog_generator -u Alfresco -p chef-alfresco -t $GIT_TOKEN
+    sed -i '/- Update /d' ./CHANGELOG.md
+  fi
 }
 
 function deploy () {
