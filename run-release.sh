@@ -41,9 +41,15 @@ export PATH=/usr/local/packer:/opt/apache-maven/bin:/Users/Shared/apache-maven/3
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+gem list > gems.list
+
+# Need this gem to create CHANGELOG.md
+#if grep -L github_changelog_generator gems.list; then
+  gem install github_changelog_generator
+#fi
+
 function runTests () {
   echo "[run-release.sh] Running Chef, Foodcritic and ERB syntax check tests"
-  gem list > gems.list
   if grep -L foodcritic gems.list; then
     gem install foodcritic
   fi
@@ -62,6 +68,7 @@ function runTests () {
   #if grep -L yaml-lint gems.list; then
     gem install yaml-lint
   #fi
+
   find . -name "*.erb" -exec rails-erb-check {} \;
   find . -name "*.json" -exec jsonlint {} \;
   find . -name "*.rb" -exec ruby -c {} \;
@@ -105,6 +112,10 @@ function incrementVersion () {
   sed "s/$currentVersion/$nextVersion/" metadata.rb > metadata.rb.tmp
   rm -f metadata.rb
   mv metadata.rb.tmp metadata.rb
+  
+  echo "[run-release.sh] Adding $currentVersion to CHANGELOG.md"
+  github_changelog_generator -u Alfresco -p chef-alfresco -t $GIT_TOKEN
+  sed -i '/- Update /d' ./CHANGELOG.md
 }
 
 function deploy () {
