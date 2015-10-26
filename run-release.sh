@@ -42,16 +42,14 @@ export PATH=/usr/local/packer:/opt/apache-maven/bin:/Users/Shared/apache-maven/3
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-gem list > gems.list
-
 # Need this gem to create CHANGELOG.md
 #if grep -L github_changelog_generator gems.list; then
-  gem install nokogiri -- --use-system-libraries
-  gem install github_changelog_generator
+bundle update
 #fi
 
 function runTests () {
   echo "[run-release.sh] Running Chef, Foodcritic and ERB syntax check tests"
+  gem list > gems.list
   if grep -L foodcritic gems.list; then
     gem install foodcritic
   fi
