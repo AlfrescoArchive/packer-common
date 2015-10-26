@@ -59,9 +59,9 @@ function runTests () {
   if grep -L rubocop gems.list; then
     gem install rubocop
   fi
-  if grep -L yaml-lint gems.list; then
+  #if grep -L yaml-lint gems.list; then
     gem install yaml-lint
-  fi
+  #fi
   find . -name "*.erb" -exec rails-erb-check {} \;
   find . -name "*.json" -exec jsonlint {} \;
   find . -name "*.rb" -exec ruby -c {} \;
