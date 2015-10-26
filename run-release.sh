@@ -44,7 +44,7 @@ export LANG=en_US.UTF-8
 
 # Need this gem to create CHANGELOG.md
 #if grep -L github_changelog_generator gems.list; then
-bundle install
+bundle install --path .bundle
 #fi
 
 function runTests () {
