@@ -47,7 +47,8 @@ gem list > gems.list
 
 # Need this gem to create CHANGELOG.md
 # if grep -L github_changelog_generator gems.list; then
-  gem install github_changelog_generator
+PKG_CONFIG_PATH=/opt/chefdk/embedded/lib/pkgconfig gem install nokogiri
+gem install github_changelog_generator
 # fi
 
 function runTests () {
