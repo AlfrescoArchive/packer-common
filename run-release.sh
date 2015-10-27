@@ -43,9 +43,9 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # Need this gem to create CHANGELOG.md
-#if grep -L github_changelog_generator gems.list; then
-# bundle install --path .bundle
-#fi
+if grep -L github_changelog_generator gems.list; then
+  bundle install --path .bundle
+fi
 
 function runTests () {
   echo "[run-release.sh] Running Chef, Foodcritic and ERB syntax check tests"
@@ -114,11 +114,12 @@ function incrementVersion () {
   mv metadata.rb.tmp metadata.rb
   
   # TODO - enable it when autoconf is installed
-  # if [ -n "$GIT_TOKEN" ]; then
-  #   echo "[run-release.sh] Adding $currentVersion to CHANGELOG.md"
-  #   github_changelog_generator -u Alfresco -p chef-alfresco -t $GIT_TOKEN
-  #   sed -i '/- Update /d' ./CHANGELOG.md
-  # fi
+  if [ -n "$GIT_TOKEN" ]
+  then
+    echo "[run-release.sh] Adding $currentVersion to CHANGELOG.md"
+    github_changelog_generator -u Alfresco -p chef-alfresco -t $GIT_TOKEN
+    sed -i '/- Update /d' ./CHANGELOG.md
+  fi
 }
 
 function deploy () {
