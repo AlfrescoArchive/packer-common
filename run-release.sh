@@ -140,25 +140,30 @@ function deploySnapshot () {
 }
 
 function release () {
-  echo "[run-release.sh] invoking Packer"
-  
   export VERSION=$(getCurrentVersion)
-  
-  if [ ! "$SKIP_PACKER" = true ] ; then
-    curl -L https://raw.githubusercontent.com/Alfresco/packer-common/master/run-packer.sh --no-sessionid | bash -s -- ./ami.env
-  fi
-  
-  echo "[run-release.sh] Packer completed"
-  echo "[run-release.sh] deploy release disabled"
+
   echo "[run-release.sh] Setting git remote to $GIT_PREFIX:$GIT_ACCOUNT_NAME/$GIT_PROJECT_NAME.git"
   git remote set-url origin $GIT_PREFIX:$GIT_ACCOUNT_NAME/$GIT_PROJECT_NAME.git
-  echo "[run-release.sh] Git tag $(getCurrentVersion)"
+  
+  echo "[run-release.sh] Check if there's an old tag to remove"
+  if git tag -d "v$(getCurrentVersion)"
+  then echo "Forced removal of local tag v$(getCurrentVersion)"
+  fi
+  
+  echo "[run-release.sh] Tagging to $(getCurrentVersion)"
   git tag -a "v$(getCurrentVersion)" -m "releasing v$(getCurrentVersion)"
-  git push origin --tags
+
+  echo "[run-release.sh] invoking Packer"
+  if [ ! "$SKIP_PACKER" = true ] ; then
+    curl -L https://raw.githubusercontent.com/Alfresco/packer-common/master/run-packer.sh --no-sessionid | bash -s -- ./ami.env
+    echo "[run-release.sh] Packer completed!"
+  fi
   buildArtifact
   deploy $(getCurrentVersion)
+  echo "[run-release.sh] Pushing $(getCurrentVersion) tag to github (origin)"
+  git push origin --tags
   incrementVersion
-  echo "[run-release.sh] Git stash/pull/pop/commit/push"
+  echo "[run-release.sh] Set new version ($(getCurrentVersion)) in metadata.rb"
   git stash
   git pull origin master
   git stash pop
