@@ -43,12 +43,12 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # Creates gems.list
-gem list > gems.list
+# gem list > gems.list
 
 # Need this gem to create CHANGELOG.md
 # if grep -L github_changelog_generator gems.list; then
-PKG_CONFIG_PATH=/opt/chefdk/embedded/lib/pkgconfig gem install nokogiri
-gem install github_changelog_generator
+# PKG_CONFIG_PATH=/opt/chefdk/embedded/lib/pkgconfig gem install nokogiri
+# gem install github_changelog_generator
 # fi
 
 function runTests () {
@@ -84,7 +84,10 @@ function runTests () {
 }
 
 function buildArtifact () {
-  runTests
+  # Invoking run-test.sh to install gems and run all checks
+  # runTests
+  curl -L https://raw.githubusercontent.com/Alfresco/packer-common/master/chef/run-test.sh --no-sessionid | bash -s
+  
   if [ -s Berksfile ]; then
     echo "[run-release.sh] Building Chef artifact with Berkshelf"
     rm -rf Berksfile.lock *.tar.gz; berks package berks-cookbooks.tar.gz
