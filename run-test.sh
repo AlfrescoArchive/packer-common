@@ -7,7 +7,7 @@ export PATH=/usr/local/packer:/opt/apache-maven/bin:/Users/Shared/apache-maven/3
 curl -L https://raw.githubusercontent.com/Alfresco/packer-common/master/chef/Gemfile --no-sessionid > Gemfile
 
 # Installing gems in the user $HOME
-bundle update --user
+bundle update --path $HOME/.bundle
 
 # Running All checks per types
 find . -name "*.erb" -exec rails-erb-check {} \;
