@@ -17,6 +17,9 @@ set -e
 echo "[run-release.sh] MVN_REPO_CREDS_ID=$MVN_REPO_CREDS_ID"
 echo "[run-release.sh] MVN_REPO_ID=$MVN_REPO_ID"
 
+echo "[run-release.sh] Setting git remote to $GIT_PREFIX:$GIT_ACCOUNT_NAME/$GIT_PROJECT_NAME.git"
+git remote set-url origin $GIT_PREFIX:$GIT_ACCOUNT_NAME/$GIT_PROJECT_NAME.git
+  
 # If ARTIFACT_ID is not set, extract it from GIT_REPO
 # Right now it only supports HTTP Git urls
 if [ -z "$ARTIFACT_ID" ]; then
@@ -145,9 +148,6 @@ function deploySnapshot () {
 function release () {
   export VERSION=$(getCurrentVersion)
 
-  echo "[run-release.sh] Setting git remote to $GIT_PREFIX:$GIT_ACCOUNT_NAME/$GIT_PROJECT_NAME.git"
-  git remote set-url origin $GIT_PREFIX:$GIT_ACCOUNT_NAME/$GIT_PROJECT_NAME.git
-  
   echo "[run-release.sh] Check if there's an old tag to remove"
   if git tag -d "v$(getCurrentVersion)"
   then echo "Forced removal of local tag v$(getCurrentVersion)"
