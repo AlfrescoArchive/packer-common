@@ -86,7 +86,7 @@ function runTests () {
 function buildArtifact () {
   # Invoking run-test.sh to install gems and run all checks
   # runTests
-  curl -L https://raw.githubusercontent.com/Alfresco/packer-common/master/chef/run-test.sh --no-sessionid | bash -s
+  curl -L https://raw.githubusercontent.com/Alfresco/packer-common/master/run-test.sh --no-sessionid | bash -s
   
   if [ -s Berksfile ]; then
     echo "[run-release.sh] Building Chef artifact with Berkshelf"
