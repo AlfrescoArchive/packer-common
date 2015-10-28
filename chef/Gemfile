@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+
+gem 'foodcritic'
+gem 'rubocop'
+gem 'berkshelf'
+gem 'rails-erb-check'
+gem 'jsonlint'
+gem 'yaml-lint'
+gem 'github_changelog_generator'
