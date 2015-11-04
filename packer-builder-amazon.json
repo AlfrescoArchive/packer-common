@@ -1,0 +1,17 @@
+{
+  "builders" : {
+    "type" : "amazon-ebs",
+    "access_key" : "{{user `access_key`}}",
+    "secret_key" : "{{user `secret_key`}}",
+    "region" : "{{user `region`}}",
+    "source_ami" : "{{user `source_ami`}}",
+    "instance_type" : "{{user `instance_type`}}",
+    "ssh_username" : "{{user `ssh_username`}}",
+    "security_group_ids"  : [{{user `security_group_ida`}}],
+    "ami_name" : "{{user `ami_name`}}",
+    "ami_description" : "{{user `ami_description`}}",
+    "ami_virtualization_type"  : "{{user `ami_virtualization_type`}}",
+    "ami_users"  : ["{{user `ami_user_1`}}"],
+    "enhanced_networking"  : "{{user `enhanced_networking`}}",    
+  }
+}
