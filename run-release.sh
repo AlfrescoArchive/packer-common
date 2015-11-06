@@ -17,9 +17,6 @@ set -e
 echo "[run-release.sh] MVN_REPO_CREDS_ID=$MVN_REPO_CREDS_ID"
 echo "[run-release.sh] MVN_REPO_ID=$MVN_REPO_ID"
 
-echo "[run-release.sh] Setting git remote to $GIT_PREFIX:$GIT_ACCOUNT_NAME/$GIT_PROJECT_NAME.git"
-git remote set-url origin $GIT_PREFIX:$GIT_ACCOUNT_NAME/$GIT_PROJECT_NAME.git
-  
 # If ARTIFACT_ID is not set, extract it from GIT_REPO
 # Right now it only supports HTTP Git urls
 if [ -z "$ARTIFACT_ID" ]; then
@@ -40,6 +37,9 @@ export GIT_PREFIX=git@github.com
 export GIT_ACCOUNT_NAME=`echo ${GIT_REPO%????} | cut -d "/" -f 4`
 
 export PATH=/usr/local/packer:/opt/apache-maven/bin:/Users/Shared/apache-maven/3.2.3/bin:$HOME/.chefdk/gem/ruby/2.1.0/bin:/opt/chefdk/bin:/opt/chefdk/embedded/bin:$PATH
+
+echo "[run-release.sh] Setting git remote to $GIT_PREFIX:$GIT_ACCOUNT_NAME/$GIT_PROJECT_NAME.git"
+git remote set-url origin $GIT_PREFIX:$GIT_ACCOUNT_NAME/$GIT_PROJECT_NAME.git
 
 # Fixes issue https://github.com/berkshelf/berkshelf-api/issues/112
 export LC_ALL=en_US.UTF-8
