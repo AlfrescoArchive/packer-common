@@ -10,6 +10,7 @@ Racker::Processor.register_template do |t|
     "region" => "{{env `REGION`}}",
     "ami_virtualization_type"=> "{{env `AMI_VIRTUALIZATION_TYPE`}}",
     "enhanced_networking" => "{{env `ENHANCED_NETWORKING`}}",
+    "ebs_optimized" => true,
     "security_group_id1" => "{{env `SECURITY_GROUP_ID1`}}",
     "security_group_id2" => "{{env `SECURITY_GROUP_ID2`}}",
     "instance_type"=> "{{env `INSTANCE_TYPE`}}",
